@@ -1,6 +1,11 @@
 import os 
+import argparse
 
-folders = os.listdir('nova')
+parser = argparse.ArgumentParser(description="Busca somentes imagens que tem xmls", add_help=True)
+parser.add_argument("--path", type=str, required=True, help="path to folders")
+args = parser.parse_args()
+
+print("Path: ", args.path)
 
 try:
     # Create target Directory
@@ -13,7 +18,7 @@ except FileExistsError:
     print("Directories already exists")
 
 for folder in folders:
-    files = os.listdir('nova/'+folder)
+    files = os.listdir(args.path+"/"+folder)
     xml_files = []
     png_files = []
     for file in files:
@@ -28,5 +33,5 @@ for folder in folders:
         name = xml_file.split('.')[0]
         if(name+'.png' in png_files):
             ind = png_files.index(name+'.png')
-            os.popen(f'cp nova/{folder}/{png_files[ind]} dataset/images/{png_files[ind]} ') 
-            os.popen(f'cp nova/{folder}/{xml_file} dataset/annotations/{xml_file} ')
+            os.popen(f'cp '+args.path+'/{folder}/{png_files[ind]} dataset/images/{png_files[ind]} ') 
+            os.popen(f'cp '+args.path+'/{folder}/{xml_file} dataset/annotations/{xml_file} ')

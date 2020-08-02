@@ -26,8 +26,10 @@ for folder in folderes:
             else: 
                  try:
                     print("Removendo "+ args.path+"/"+folder+"/"+xml)
+                    png = xml.replace("xml", "png")
                     os.remove(args.path+"/"+folder+"/"+xml)
+                    os.remove(args.path+"/"+folder+"/"+png)
                 
                  except:
-                       pass
+                       print("Erro ao remover: ",  args.path+"/"+folder+"/"+xml)
                           
